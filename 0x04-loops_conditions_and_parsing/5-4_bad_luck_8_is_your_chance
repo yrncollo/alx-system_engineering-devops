@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Loops from 1 to 10 displaying "bad luck" on 4th iteration, "good luck" on 8th iteration and "Best School" for other iterations
+n=0
+while ((n < 10)); do
+	if ((n == 3)); then
+		echo "bad luck"
+	elif ((n == 7)); then
+		echo "good luck"
+	else
+		echo "Best School"
+	fi
+	n=$((n+1))
+done
