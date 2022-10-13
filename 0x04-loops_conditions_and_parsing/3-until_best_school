@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Prints "Best School" 10 times
+n=0
+until ((n > 9)); do
+	echo "Best School"
+	n=$((n+1))
+done
