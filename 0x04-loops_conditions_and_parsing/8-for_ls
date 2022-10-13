@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# script to display content of current directory in a list format where only part of the name after the first dash is displayed
+for ((n=0; n<1; n++)); do
+	find ./* | cut -d "-" -f2 | cut -d "/" -f2
+done
