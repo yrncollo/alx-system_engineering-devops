@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# configures an Nginx server so that /redirect_me is redirecting to another page
+
+apt-get -y update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/thala254 permanent;/" /etc/nginx/sites-available/default
+service nginx start
