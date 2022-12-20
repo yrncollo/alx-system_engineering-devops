@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# script that installs and configures HAproxy on my lb-01 server acting as load balancer
+
+sudo apt-get -y update
+sudo apt-get -y install software-properties-common
+sudo add-apt-repository ppa:vbernat/haproxy-1.8 -y
+sudo apt-get -y update
+sudo apt-get -y install haproxy=1.8.\*
+
+# modify the haproxy's init config to enable it
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
+
+# backup the original haproxy config file
+cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.original
+
+# the load balancer's configuration
+sudo sed -i "$ a\frontend 28140-lb-01\n\tbind *:80\n\tmode http\n\tdefault_backend web_backend\n\nbackend web_backend\n\tbalance roundrobin\n\tserver 28140-web-01 44.210.86.178:80 check\n\tserver 28140-web-02 44.200.174.223:80 check" /etc/haproxy/haproxy.cfg
+
+# start haproxy
+sudo service haproxy restart
